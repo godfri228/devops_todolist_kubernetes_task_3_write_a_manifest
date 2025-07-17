@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      containers:
+      - name: todo-app
+        image: python:3.9-slim
+        command: ["sh", "-c", "pip install flask && python app.py"]
+        envFrom:
+        - configMapRef:
+            name: todo-config
+        ports:
+        - containerPort: 5000
