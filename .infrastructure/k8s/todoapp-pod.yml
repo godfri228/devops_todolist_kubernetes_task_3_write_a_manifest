@@ -1,28 +1,18 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: todo-app-pod
-  namespace: todo-namespace
-  labels:
-    app: todo-app
+  name: todoapp
+  namespace: todoapp
 spec:
   containers:
-  - name: todo-app
-    image: your-dockerhub-username/todo-app:latest  # Замініть на свій образ
+  - name: todoapp
+    image: godfri/todoapp:3.0.0
     ports:
-    - containerPort: 5000
-    envFrom:
-    - configMapRef:
-        name: todo-config
+    - containerPort: 8000
     livenessProbe:
       httpGet:
-        path: /healthz
-        port: 5000
-      initialDelaySeconds: 5
-      periodSeconds: 10
+        path: /api/healthz
+        port: 8000
     readinessProbe:
       httpGet:
-        path: /ready
-        port: 5000
-      initialDelaySeconds: 2
-      periodSeconds: 5
+        path: /api/ready

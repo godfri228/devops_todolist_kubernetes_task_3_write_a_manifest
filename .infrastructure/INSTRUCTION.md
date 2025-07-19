@@ -1,12 +1,18 @@
-# Інструкція розгортання
+# Інструкція
 
-1. Зібрати Docker образ:
+1. Застосувати маніфести:
 ```bash
-docker build -t your-username/todo-app .
+kubectl apply -f .infrastructure/namespace.yml
+kubectl apply -f .infrastructure/
 ```
 
-2. Застосувати маніфести:
+2. Тестування через port-forward:
 ```bash
-kubectl apply -f .infrastructure/k8s/namespace.yml
-kubectl apply -f .infrastructure/k8s/
+kubectl port-forward pod/todoapp 8000:8000 -n todoapp
+```
+Відкрийте http://localhost:8000
+
+3. Тестування через busybox:
+```bash
+kubectl exec -it busybox -n todoapp -- curl http://todoapp:8000
 ```
