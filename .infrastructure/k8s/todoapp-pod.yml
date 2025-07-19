@@ -16,3 +16,4 @@ spec:
     readinessProbe:
       httpGet:
         path: /api/ready
+        port: 8000
