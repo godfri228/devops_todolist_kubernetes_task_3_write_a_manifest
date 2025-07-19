@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: todo-app-pod
+  namespace: todo-namespace
+  labels:
+    app: todo-app
+spec:
+  containers:
+  - name: todo-app
+    image: your-dockerhub-username/todo-app:latest  # Замініть на свій образ
+    ports:
+    - containerPort: 5000
+    envFrom:
+    - configMapRef:
+        name: todo-config
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 5000
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /ready
+        port: 5000
+      initialDelaySeconds: 2
+      periodSeconds: 5
