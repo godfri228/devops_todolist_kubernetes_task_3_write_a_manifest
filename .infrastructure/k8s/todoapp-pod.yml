@@ -13,7 +13,9 @@ spec:
       httpGet:
         path: /api/healthz
         port: 8000
-    readinessProbe:
-      httpGet:
-        path: /api/ready
-        port: 8000
+readinessProbe:
+  httpGet:
+    path: /api/ready
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 10
